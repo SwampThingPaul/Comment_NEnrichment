@@ -137,11 +137,11 @@ abline(h=ymaj,v=xmaj,lty=3,col="grey")
 for(i in 1:6){
   with(subset(rf.dat.ann,Region==regions.val[i]),pt_line(WY,sum.cm,2,adjustcolor(cols[i],0.25),1,21,adjustcolor(cols[i],0.5),1.25,pt.lwd=0.1,pt.col=adjustcolor("black",0.5)))
 }
-mean.rf=ddply(rf.dat.ann,"WY",summarise,mean.val=mean(sum.cm,na.rm=T),sd.val=sd(sum.cm,na.rm=T),N.val=N(sum.cm))
-mean.rf$DOF=mean.rf$N.val-1
-mean.rf$Tp=abs(qt(0.975,mean.rf$DOF))
-mean.rf$U.CI=with(mean.rf,mean.val+(sd.val*Tp)/sqrt(N.val))
-mean.rf$L.CI=with(mean.rf,mean.val-(sd.val*Tp)/sqrt(N.val))
+mean.rf<-ddply(rf.dat.ann,"WY",summarise,mean.val=mean(sum.cm,na.rm=T),sd.val=sd(sum.cm,na.rm=T),N.val=N(sum.cm))
+mean.rf$DOF<-mean.rf$N.val-1
+mean.rf$Tp<-abs(qt(0.975,mean.rf$DOF))
+mean.rf$U.CI<-with(mean.rf,mean.val+(sd.val*Tp)/sqrt(N.val))
+mean.rf$L.CI<-with(mean.rf,mean.val-(sd.val*Tp)/sqrt(N.val))
 
 with(mean.rf,shaded.range(WY,L.CI,U.CI,"grey",lty=1))
 with(mean.rf,lines(WY,mean.val,col="black",lwd=1.5))
